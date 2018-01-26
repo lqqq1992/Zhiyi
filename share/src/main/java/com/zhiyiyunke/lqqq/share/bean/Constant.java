@@ -1,7 +1,7 @@
 package com.zhiyiyunke.lqqq.share.bean;
 
 /**
- * 全局常亮
+ * 全局常量
  * Created by LQQQ1 on 2018/1/24.
  */
 
