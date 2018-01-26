@@ -169,7 +169,9 @@ public class WeChatShare implements WeChatShareBase {
         msg.title = title;
         msg.description = description;
 
-        Bitmap thumb = BitmapFactory.decodeResource(shareView.getResources(), R.mipmap.ic_launcher_round);
+        Bitmap bmp = BitmapFactory.decodeResource(shareView.getResources(), R.mipmap.ic_launcher_round);
+        Bitmap thumb = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, true);
+        bmp.recycle();
         msg.thumbData = BitmapUtil.bmpToByteArray(thumb, true);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
@@ -188,7 +190,9 @@ public class WeChatShare implements WeChatShareBase {
         msg.title = title;
         msg.description = title;
 
-        Bitmap thumb = BitmapFactory.decodeResource(shareView.getResources(), R.mipmap.ic_launcher_round);
+        Bitmap bmp = BitmapFactory.decodeResource(shareView.getResources(), R.mipmap.ic_launcher_round);
+        Bitmap thumb = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, true);
+        bmp.recycle();
         msg.thumbData = BitmapUtil.bmpToByteArray(thumb, true);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
@@ -206,7 +210,9 @@ public class WeChatShare implements WeChatShareBase {
         msg.title = title;
         msg.description = title;
 
-        Bitmap thumb = BitmapFactory.decodeResource(shareView.getResources(), R.mipmap.ic_launcher_round);
+        Bitmap bmp = BitmapFactory.decodeResource(shareView.getResources(), R.mipmap.ic_launcher_round);
+        Bitmap thumb = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, true);
+        bmp.recycle();
         msg.thumbData = BitmapUtil.bmpToByteArray(thumb, true);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
