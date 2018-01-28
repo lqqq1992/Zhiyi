@@ -10,7 +10,7 @@
 
 ### 开发
 * 参考[微信接入指南](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=1417751808&token=f4464de1cd69d0cef908b181c6ab61ce4d0f5d29&lang=zh_CN)
-* 代码参考如下：
+* 代码参考如下（以分享文本为例）：
 ```Java
         //1.创建一个WXTextObject对象
         WXTextObject textObject = new WXTextObject();
@@ -44,3 +44,9 @@
         bmp.recycle();
         msg.thumbData = BitmapUtil.bmpToByteArray(thumbBmp, true);
 ```
+代码中的第一步中需要创建的对象，都是继承自IMediaObject：
+* 文本  WXTextObject
+* 图片  WXImageObject
+* 音频  WXMusicObject
+* 视频  WXVideoObject
+* 网页  WXWebpageObject
