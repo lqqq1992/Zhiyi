@@ -39,7 +39,7 @@
         android:layout_gravity="center"
         android:text="音频分享"/>
     <Button
-        android:id="@+id/share_vedio"
+        android:id="@+id/share_video"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

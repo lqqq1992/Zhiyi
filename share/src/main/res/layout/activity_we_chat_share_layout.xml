@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zhiyiyunke.lqqq.share.view.WeChatShareActivity">
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="com.zhiyiyunke.lqqq.share.view.ShareActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/share_text_and_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="分享图文"/>
+    <Button
+        android:id="@+id/share_image_qq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="分享图片"/>
+    <Button
+        android:id="@+id/share_audio_qq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="分享音乐"/>
+    <Button
+        android:id="@+id/share_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="分享APP"/>
+    <Button
+        android:id="@+id/share_to_zone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="分享到空间"/>
+
+
+</LinearLayout>

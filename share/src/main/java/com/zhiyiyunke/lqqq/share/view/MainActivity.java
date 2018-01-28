@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button shareText,shareWeb,shareImage,shareImages,shareAudio,shareVedio,shareTo;
+    private Button shareText,shareWeb,shareImage,shareImages,shareAudio,shareVideo,shareTo;
     private Share share;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         shareImage = findViewById(R.id.share_image);
         shareImages = findViewById(R.id.share_images);
         shareAudio = findViewById(R.id.share_audio);
-        shareVedio = findViewById(R.id.share_vedio);
+        shareVideo = findViewById(R.id.share_video);
         shareTo = findViewById(R.id.share_to);
 
         shareText.setOnClickListener(this);
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         shareImage.setOnClickListener(this);
         shareImages.setOnClickListener(this);
         shareAudio.setOnClickListener(this);
-        shareVedio.setOnClickListener(this);
+        shareVideo.setOnClickListener(this);
         shareTo.setOnClickListener(this);
     }
 
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.share_audio:
 
                 break;
-            case R.id.share_vedio:
+            case R.id.share_video:
 
                 break;
             case R.id.share_to:
