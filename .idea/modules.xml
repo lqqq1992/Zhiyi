@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Zhiyiyunke.iml" filepath="$PROJECT_DIR$/Zhiyiyunke.iml" />
       <module fileurl="file://D:\AndroidDevelop\AndroidProject\Zhiyiyunke\share\app.iml" filepath="D:\AndroidDevelop\AndroidProject\Zhiyiyunke\share\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imageabout/imageabout.iml" filepath="$PROJECT_DIR$/imageabout/imageabout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/push/push.iml" filepath="$PROJECT_DIR$/push/push.iml" />
       <module fileurl="file://$PROJECT_DIR$/share/share.iml" filepath="$PROJECT_DIR$/share/share.iml" />
     </modules>
   </component>

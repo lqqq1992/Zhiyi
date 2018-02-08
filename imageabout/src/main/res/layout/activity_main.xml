@@ -56,8 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="number"
-            android:text="480"
-            android:hint="480"/>
+            android:text="1000"
+            android:hint="1000"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,8 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="number"
-            android:text="800"
-            android:hint="800"/>
+            android:text="1000"
+            android:hint="1000"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -88,8 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="number"
-            android:text="100"
-            android:hint="100"/>
+            android:text="500"
+            android:hint="500"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -110,5 +110,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="保存" />
+        <Button
+            android:id="@+id/compress_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="批量压缩" />
     </LinearLayout>
 </LinearLayout>

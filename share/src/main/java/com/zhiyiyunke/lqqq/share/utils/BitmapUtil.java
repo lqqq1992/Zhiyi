@@ -10,6 +10,12 @@ import java.io.ByteArrayOutputStream;
  */
 
 public class BitmapUtil {
+    /**
+     * 图片转化为byte[]
+     * @param bmp
+     * @param needRecycle
+     * @return
+     */
     public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.PNG, 100, output);

@@ -144,6 +144,6 @@ public abstract class ShareBaseActivity extends AppCompatActivity implements IUi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Tencent.onActivityResultData(requestCode,resultCode,data,this);
+        Tencent.onActivityResultData(requestCode,resultCode,data,this);//QQ分享回调实现
     }
 }

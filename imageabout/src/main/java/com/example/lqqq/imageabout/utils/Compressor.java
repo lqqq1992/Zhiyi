@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.util.Log;
+import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -51,56 +51,41 @@ public class Compressor {
     }
     public Compressor setMaxSize(int maxSize){
         this.maxSize = maxSize;
-        Log.e("maxSize----",maxSize+"");
         return this;
     }
 
-    public Bitmap compressToTargetSize(File imageFile){
-        Log.e("----file length",imageFile.length()+"---"+quality);
+    /**
+     * 批量压缩
+     * @param imageFile
+     * @return
+     */
+    public Compressor compressToTargetSize(File imageFile){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();//创建输出流
-        Matrix matrix = null;
-        try {
-            matrix = adjustAngle(imageFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         Bitmap bitmap = scale(imageFile);
-//        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-//        baos = compressQuality(bitmap);
-
-        //
         int quality = 100;
         bitmap.compress(Bitmap.CompressFormat.JPEG,quality,baos);
-        Log.e("----baos size",baos.toByteArray().length+"");
-        while (baos.toByteArray().length/1024>=this.maxSize){
+        while (baos.toByteArray().length/1024f>=this.maxSize){
             quality = quality - 5;
-            if(quality <= 60){
+            if(quality <= 80){
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = oldSize*2;
                 oldSize *= 2;
                 bitmap = BitmapFactory.decodeFile(imageFile.getPath(),options);
-//                bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
                 quality = 100;
             }
             baos.reset();
             bitmap.compress(Bitmap.CompressFormat.JPEG,quality,baos);
-            Log.e("----oldsize",oldSize+"---"+quality);
         }
-        //
 
         this.baos = baos;
-        Log.e("----target length",baos.toByteArray().length+"");
-
-        return BitmapFactory.decodeByteArray(baos.toByteArray(),0,baos.toByteArray().length);
+        return this;
     }
     /**
      * 从文件中读取并压缩图片
      * @param imageFile
      * @return
      */
-    public Bitmap compressImage(File imageFile){
-
-        Log.e("----file length",imageFile.length()+"---"+quality);
+    public Compressor compressImage(File imageFile){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();//创建输出流
         //1.图片旋转问题
         Matrix matrix = null;
@@ -118,9 +103,7 @@ public class Compressor {
         baos = compressQuality(bitmap);
         //5.将压缩后的数据保存在baos中，用于存储到文件中
         this.baos = baos;
-        Log.e("----target length",baos.toByteArray().length+"");
-
-        return BitmapFactory.decodeByteArray(baos.toByteArray(),0,baos.toByteArray().length);
+        return this;
     }
 
     /**
@@ -129,13 +112,13 @@ public class Compressor {
      * @param id
      * @return
      */
-    public Bitmap compressImage(Resources resources,int id){
+    public Compressor compressImage(Resources resources,int id){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         Bitmap bitmap = scale(resources, id);
         baos = compressQuality(bitmap);
         this.baos = baos;
-        return BitmapFactory.decodeByteArray(baos.toByteArray(),0,baos.toByteArray().length);
+        return this;
     }
 
     /**
@@ -199,16 +182,14 @@ public class Compressor {
         int quality = 100;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,quality,baos);
-        while (baos.toByteArray().length/1024>=this.maxSize){
+        while (baos.toByteArray().length/1024f>=this.maxSize){
             quality = quality - 5;
             baos.reset();
             bitmap.compress(Bitmap.CompressFormat.JPEG,quality,baos);
             if(quality <= 0){
-                Log.e("----baos size",baos.toByteArray().length+"");
                 return baos;
             }
         }
-        Log.e("----baos size",baos.toByteArray().length+"");
         return baos;
     }
 
@@ -224,22 +205,22 @@ public class Compressor {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
-//        if (height > reqHeight || width > reqWidth) {
-//
-//            final int halfHeight = height / 2;
-//            final int halfWidth = width / 2;
-//
-//            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-//            // height and width larger than the requested height and width.
-//            while ((halfHeight / inSampleSize) >= reqHeight && (halfWidth / inSampleSize) >= reqWidth) {
-//                inSampleSize *= 2;
-//            }
-//        }
         if (height > reqHeight || width > reqWidth) {
-            final int heightRatio = Math.round((float) height/ (float) reqHeight);
-            final int widthRatio = Math.round((float) width / (float) reqWidth);
-            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) >= reqHeight && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
         }
+//        if (height > reqHeight || width > reqWidth) {
+//            final int heightRatio = Math.round((float) height/ (float) reqHeight);
+//            final int widthRatio = Math.round((float) width / (float) reqWidth);
+//            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+//        }
         return inSampleSize;
     }
 
@@ -277,5 +258,13 @@ public class Compressor {
             }
         }
         return file;
+    }
+
+    /**
+     * 添加到UI中
+     * @param imageView
+     */
+    public void addTo(ImageView imageView){
+        imageView.setImageBitmap(BitmapFactory.decodeByteArray(baos.toByteArray(),0,baos.toByteArray().length));
     }
 }

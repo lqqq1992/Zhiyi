@@ -3,11 +3,14 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="D:\AndroidDevelop\AndroidStudio3.x\gradle\gradle-4.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/imageabout" />
+            <option value="$PROJECT_DIR$/push" />
             <option value="$PROJECT_DIR$/share" />
           </set>
         </option>
