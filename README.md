@@ -144,3 +144,68 @@ Tencent.onActivityResultData(requestCode,resultCode,data,this);
   params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_APP);//APP分享
   params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE,QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT );//qq空间分享，目前只支持图文
 ```
+### 图片压缩
+* 尺寸压缩：采用的是采样率压缩，为了节约内存使用
+```java
+public Bitmap scale(File imageFile){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(imageFile.getAbsolutePath(),options);
+        options.inSampleSize = calculateInSampleSize(options,maxWidth,maxHeight);
+        oldSize = options.inSampleSize;
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(imageFile.getAbsolutePath(),options);
+    }
+```
+ 主要实现是在options.inSampleSize的值上的修改，具体压缩算法就是在这个值得计算上
+* 质量压缩：
+```java
+   bitmap.compress(Bitmap.CompressFormat.JPEG,quality,baos);
+```
+ 代码很简单就一句，参数quality表示压缩质量（0~100），100表示不压缩，值越小失真越严重
+* 工具类使用代码参考
+```java
+compressor.setMaxWidth(getContent(newWidth, 1000))//宽度设置
+                          .setMaxHeight(getContent(newHeight, 1000))//高度设置
+                          .setMaxSize(getContent(quality, 500))//最大图片大小
+                          .compressImage(file)//压缩
+                          .addTo(newImage);//添加到UI
+                          .saveImageFile(path, "cache.jpg");//保存图片
+```
+### 消息推送（极光推送）
+官网的[集成文档和API文档](https://docs.jiguang.cn/jpush/client/Android/android_guide/)都十分详尽，下面说一下大概步骤：
+* 在[官网](https://www.jiguang.cn/)注册账号并创建应用
+* 集成SDK到项目中（ps：AS用户可以直接通过gradle配置jcenter库）
+* 在项目中添加注册代码，开启推送服务,一般是在application中
+```java
+        JPushInterface.setDebugMode(true);//开启Log调试
+        JPushInterface.init(this);//注册APP
+        JPushInterface.requestPermission(this);//权限
+```
+* 创建静态广播接收器
+```java
+  <receiver
+            android:name="PushReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+
+                <category android:name="com.example.lqqq.push" />//修改为你的包名
+            </intent-filter>
+        </receiver>
+```
+```java
+  public class PushReceiver extends BroadcastReceiver
+```
+ 在这个receiver中实现各种action逻辑，[官方API](https://docs.jiguang.cn/jpush/client/Android/android_api/)对于各个ACTION的解释和使用非常详细，这里就不赘述了
+* 消息回调（主要是对于别名和标签的增删改查，以及对于手机号的相关操作的请求返回）
+ ```java
+   public class PushCallBackReceiver extends JPushMessageReceiver
+ ```
+  具体重写JPushMessageReceiver中的几个方法即可
+ 
